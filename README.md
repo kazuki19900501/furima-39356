@@ -18,17 +18,17 @@
 
 ## items テーブ
 
-| Column             | Type      | Options                        |
-| ------------------ | --------- | ------------------------------ |
-| name               | string    | null: false                    |
-| description        | text      | null: false                    |
-| cotegory_id        | integer   | null: false                    |
-| condition_id       | integer   | null: false                    |
-| delivery_charge_id | integer   | null: false                    |
-| prefecture_id      | integer   | null: false                    |
-| transit_day_id     | integer   | null: false                    |
-| price              | integer   | null: false                    |
-| user               | refrences | null: false, foreign_key: true |
+| Column             | Type       | Options                        |
+| ------------------ | ---------- | ------------------------------ |
+| name               | string     | null: false                    |
+| description        | text       | null: false                    |
+| cotegory_id        | integer    | null: false                    |
+| condition_id       | integer    | null: false                    |
+| delivery_charge_id | integer    | null: false                    |
+| prefecture_id      | integer    | null: false                    |
+| transit_day_id     | integer    | null: false                    |
+| price              | integer    | null: false                    |
+| user               | references | null: false, foreign_key: true |
 
 - belongs_to :user
 - has_one :order
