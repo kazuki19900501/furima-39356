@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :user do
     nickname {"カズキング"}
     email {Faker::Internet.free_email}
-    password {Faker::Internet.password(min_length: 6)}
+    password { "user"+"#{Faker::Number.number(digits: 6)}" }
     password_confirmation {password}
     last_name {"福田"}
     first_name {"和寿来"}

@@ -63,6 +63,37 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include('First name kana is invalid. Input full-width katakana characters.')
       end
+      it 'emailが空では登録できない' do
+        @user.email = ''
+        @user.valid?
+        expect(@user.errors.full_messages).to include "Email can't be blank"
+      end
+      it 'passwordが空では登録できない' do
+        @user.password = ''
+        @user.valid?
+        expect(@user.errors.full_messages).to include "Password can't be blank"
+      end
+      it 'emailが一意性でないと登録できない' do
+        existing_user = FactoryBot.create(:user, email: "user@example.com")
+        new_user = FactoryBot.build(:user, email: "user@example.com")
+        expect(new_user).to_not be_valid
+        expect(new_user.errors.full_messages).to include("Email has already been taken")
+      end
+      it "emailは@が含まれていないと登録できない" do
+        user = FactoryBot.build(:user, email: "invalid_email")
+        expect(user).to_not be_valid
+        expect(user.errors.full_messages).to include("Email is invalid")
+      end
+      it "passwordは6文字以上でなければ登録できない" do
+        user = FactoryBot.build(:user, password: "12345")
+        expect(user).to_not be_valid
+        expect(user.errors.full_messages).to include("Password is too short (minimum is 6 characters)")
+      end
+      it "passwordとpassword_confirmationの値が一致しないと登録できない" do
+        user = FactoryBot.build(:user, password: "password123", password_confirmation: "different_password")
+        expect(user).to_not be_valid
+        expect(user.errors.full_messages).to include("Password confirmation doesn't match Password")
+      end
     end
   end
 end
