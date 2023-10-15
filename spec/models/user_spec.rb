@@ -94,6 +94,21 @@ RSpec.describe User, type: :model do
         expect(user).to_not be_valid
         expect(user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
+      it "passwordは英字のみでは登録できない" do
+        user = FactoryBot.build(:user, password: "abcdefgh")
+        expect(user).to_not be_valid
+        expect(user.errors.full_messages).to include("Password には英字と数字の両方を含めて設定してください")
+      end
+      it "passwordは数字のみでは登録できない" do
+        user = FactoryBot.build(:user, password: "123456")
+        expect(user).to_not be_valid
+        expect(user.errors.full_messages).to include("Password には英字と数字の両方を含めて設定してください")
+      end
+      it "passwordに全角文字を含む場合は登録できない" do
+        user = FactoryBot.build(:user, password: "パスワード123")
+        expect(user).to_not be_valid
+        expect(user.errors.full_messages).to include("Password には英字と数字の両方を含めて設定してください")
+      end
     end
   end
 end
