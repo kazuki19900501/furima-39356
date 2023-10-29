@@ -15,7 +15,6 @@ class ItemsController < ApplicationController
   end
 
   def index
-    @item = Item.new
   end
 
   private
