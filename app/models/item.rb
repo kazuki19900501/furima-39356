@@ -6,6 +6,7 @@ class Item < ApplicationRecord
   belongs_to :delivery_charge
   belongs_to :prefecture
   belongs_to :transit_day
+  belongs_to :user
 
   validates :image, presence: true
   validates :name, presence: true
@@ -16,7 +17,7 @@ class Item < ApplicationRecord
   validates :delivery_charge_id, numericality: { other_than: 1 }
   validates :prefecture_id, numericality: { other_than: 1 }
   validates :transit_day_id, numericality: { other_than: 1 }
-  validates :price, numericality: { greater_than_or_equal_to: 300, }
-  validates :price, numericality: { less_than_or_equal_to: 9999999, }
+  validates :price, numericality: { greater_than_or_equal_to: 300, only_integer: true }
+  validates :price, numericality: { less_than_or_equal_to: 9999999, only_integer: true }
   validates :price, format: { with: /\A[0-9]+\z/, message: "Price is not a number" }
 end

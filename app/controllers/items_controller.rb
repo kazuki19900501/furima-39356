@@ -1,7 +1,5 @@
 class ItemsController < ApplicationController
-  def message_params
-    params.require(:message).permit(:content, :image).merge(user_id: current_user.id)
-  end
+  before_action :authenticate_user!, except: [:index]
 
   def new
     @item = Item.new
@@ -14,6 +12,10 @@ class ItemsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def index
+    @item = Item.new
   end
 
   private
