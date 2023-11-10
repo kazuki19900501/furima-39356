@@ -1,5 +1,6 @@
 class Item < ApplicationRecord
   has_one_attached :image
+  has_one :order
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :cotegory
   belongs_to :condition
@@ -7,6 +8,7 @@ class Item < ApplicationRecord
   belongs_to :prefecture
   belongs_to :transit_day
   belongs_to :user
+  
 
   validates :image, presence: true
   validates :name, presence: true
