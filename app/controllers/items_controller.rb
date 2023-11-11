@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_item, only: [:edit, :show, :update, :destroy]
+  before_action :check_seller, only: [:edit]
 
   def new
     @item = Item.new
@@ -55,4 +56,9 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
+  def check_seller
+    if current_user != @item.user || @item.order
+      redirect_to root_path
+    end
+  end
 end
